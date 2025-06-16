@@ -1,0 +1,55 @@
+services:
+  mpi-node1:
+    build: .
+    container_name: mpi-node1
+    hostname: mpi-node1
+    privileged: true
+    volumes:
+      - ./mpi_code:/home/vagrant/mpi_code
+    networks:
+      mpi-cluster-net:
+        ipv4_address: 192.168.57.11
+    tty: true
+
+  mpi-node2:
+    build: .
+    container_name: mpi-node2
+    hostname: mpi-node2
+    privileged: true
+    volumes:
+      - ./mpi_code:/home/vagrant/mpi_code
+    networks:
+      mpi-cluster-net:
+        ipv4_address: 192.168.57.12
+    tty: true
+
+  mpi-node3:
+    build: .
+    container_name: mpi-node3
+    hostname: mpi-node3
+    privileged: true
+    volumes:
+      - ./mpi_code:/home/vagrant/mpi_code
+    networks:
+      mpi-cluster-net:
+        ipv4_address: 192.168.57.13
+    tty: true
+
+  mpi-node4:
+    build: .
+    container_name: mpi-node4
+    hostname: mpi-node4
+    privileged: true
+    volumes:
+      - ./mpi_code:/home/vagrant/mpi_code
+    networks:
+      mpi-cluster-net:
+        ipv4_address: 192.168.57.14
+    tty: true
+
+networks:
+  mpi-cluster-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.57.0/24
