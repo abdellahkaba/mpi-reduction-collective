@@ -29,11 +29,11 @@ L'approche utilise :
 ```python
 Données initiales (N éléments)
        ↓
-MPI_Scatterv → Distribution vers P processus
+Scatter → Distribution vers P processus
        ↓
 Calcul intensif en parallèle (10k opérations/élément)
        ↓
-MPI_Reduce → Somme globale
+Reduce → Somme globale
 Un exemple de réduction collective MPI avec distribution intelligente des données et calcul intensif, exécuté dans un cluster Docker.
 
 ```
@@ -76,12 +76,3 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
 **Efficacité parallèle**: 90.5% (3.62x/4.00x théorique)
 
 ```
-### Sortie Type
-
-```plaintext
-=== EXÉCUTION PARALLÈLE ===
-[COLLECTIVE] Distribution des données...
-[PROCESSUS 0] Début du calcul sur 250 éléments...
-[PROCESSUS 0] Calcul terminé en 0.194s, somme locale: 204.59
-[COLLECTIVE] Somme globale finale: 818.36
-Temps total: 0.201s
