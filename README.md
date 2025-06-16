@@ -1,8 +1,3 @@
-# MPI Collective Reduction avec Docker
-
-[![MPI](https://img.shields.io/badge/MPI-Parallel%20Computing-blue)](https://www.open-mpi.org/)
-[![Docker](https://img.shields.io/badge/Docker-Containerized-green)](https://www.docker.com/)
-
 # MPI Collective Reduction - Calcul Parallèle avec Docker
 
 ![MPI](https://img.shields.io/badge/MPI-Parallel%20Computing-blue)
