@@ -3,6 +3,35 @@
 [![MPI](https://img.shields.io/badge/MPI-Parallel%20Computing-blue)](https://www.open-mpi.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-green)](https://www.docker.com/)
 
+# MPI Collective Reduction - Calcul Parallèle avec Docker
+
+![MPI](https://img.shields.io/badge/MPI-Parallel%20Computing-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-green)
+![Performance](https://img.shields.io/badge/Speedup-3.62x-brightgreen)
+
+## 📌 Présentation
+
+Ce projet démontre une implémentation de **réduction collective MPI** pour effectuer des calculs intensifs sur un cluster de machines. Il compare les performances entre :
+
+- Une version **monoprocesseur** (séquentielle)
+- Une version **parallèle** utilisant 4 nœuds MPI
+
+L'approche utilise :
+- `MPI_Scatterv` pour une distribution équilibrée des données
+- `MPI_Reduce` pour la réduction finale
+- Un cluster Docker pour l'exécution distribuée
+
+## 🧠 Explication Technique
+
+### Algorithme de Réduction
+```python
+Données initiales (N éléments)
+       ↓
+MPI_Scatterv → Distribution vers P processus
+       ↓
+Calcul intensif en parallèle (10k opérations/élément)
+       ↓
+MPI_Reduce → Somme globale
 Un exemple de réduction collective MPI avec distribution intelligente des données et calcul intensif, exécuté dans un cluster Docker.
 
 ## 🛠 Installation & Exécution
