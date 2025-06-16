@@ -7,10 +7,21 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
 
 ## 🛠 Installation & Exécution
 
-    Lancer le cluster MPI:
-    docker compose up --build -d
-    Se connecter au nœud maître:
-    docker exec -it --user vagrant mpi-node1 bash
+    1. Lancer le cluster MPI:
+        docker compose up --build -d
+        
+    2. Se connecter au nœud maître: 
+        docker exec -it --user vagrant mpi-node1 bash
+        
+    3. Compiler le programme:
+        mpicc collective_reduction.c -o collective_reduction -lm
+        
+    4. Exécuter en parallèle (4 processus):
+        mpirun -np 4 -host mpi-node1,mpi-node2,mpi-node3,mpi-node4 ./collective_reduction
+
+    5. Comparer avec la version séquentielle:
+        mpirun -np 1 ./collective_reduction
+    
 
 
 ## 📊 Résultats de Performance
