@@ -12,9 +12,16 @@ Ce projet démontre une implémentation de **réduction collective MPI** pour ef
 - Une version **parallèle** utilisant 4 nœuds MPI
 
 L'approche utilise :
-- `MPI_Scatterv` pour une distribution équilibrée des données
-- `MPI_Reduce` pour la réduction finale
-- Un cluster Docker pour l'exécution distribuée
+
+Monoprocesseur : Traite tous les éléments séquentiellement
+
+Collective MPI :
+
+Distribution des données (scatter)
+
+Calcul parallèle local
+
+Agrégation des résultats (reduce)
 
 ## 🧠 Explication Technique
 
