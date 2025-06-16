@@ -37,6 +37,7 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
         
     2. Se connecter au nœud maître: 
         docker exec -it --user vagrant mpi-node1 bash
+        cd ./mpi_code
         
     3. Compiler le programme:
         mpicc collective_reduction.c -o collective_reduction -lm
@@ -46,6 +47,12 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
 
     5. Comparer avec la version séquentielle:
         mpirun -np 1 ./collective_reduction
+    NB :
+       Utilisez les commandes si les noeuds ne sont pas connectés sur le noeud principal
+       vagrant@mpi-node1: ssh vagrant@mpi-node2
+       vagrant@mpi-node1: ssh vagrant@mpi-node3
+       vagrant@mpi-node1: ssh vagrant@mpi-node4
+
 ```  
 ### 📊 Résultats de Performance
 
