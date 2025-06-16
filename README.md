@@ -29,8 +29,9 @@ Calcul intensif en parallèle (10k opérations/élément)
 MPI_Reduce → Somme globale
 Un exemple de réduction collective MPI avec distribution intelligente des données et calcul intensif, exécuté dans un cluster Docker.
 
-## 🛠 Installation & Exécution
-
+```
+### 🛠 Installation & Exécution
+```python
     1. Lancer le cluster MPI:
         docker compose up --build -d
         
@@ -45,12 +46,11 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
 
     5. Comparer avec la version séquentielle:
         mpirun -np 1 ./collective_reduction
-    
+```  
+### 📊 Résultats de Performance
 
-
-## 📊 Résultats de Performance
-
-### Comparaison Monoprocesseur vs Parallèle (4 nœuds)
+```python
+## Comparaison Monoprocesseur vs Parallèle (4 nœuds)
 
 | Métrique               | Parallèle (4x) | Séquentiel | Accélération |
 |------------------------|---------------|------------|--------------|
@@ -61,6 +61,7 @@ Un exemple de réduction collective MPI avec distribution intelligente des donn�
 
 **Efficacité parallèle**: 90.5% (3.62x/4.00x théorique)
 
+```
 ### Sortie Type
 
 ```plaintext
