@@ -1,9 +1,14 @@
-# MPI Collective Reduction with Docker
+# MPI Collective Reduction avec Docker
 
 [![MPI](https://img.shields.io/badge/MPI-Parallel%20Computing-blue)](https://www.open-mpi.org/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-green)](https://www.docker.com/)
 
 Un exemple de réduction collective MPI avec distribution intelligente des données et calcul intensif, exécuté dans un cluster Docker.
+
+## 🛠 Installation & Exécution
+
+### Lancer le cluster MPI:
+docker compose up --build -d
 
 ## 📊 Résultats de Performance
 
