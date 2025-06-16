@@ -13,15 +13,15 @@ Ce projet démontre une implémentation de **réduction collective MPI** pour ef
 
 L'approche utilise :
 
-Monoprocesseur : Traite tous les éléments séquentiellement
+- Monoprocesseur : Traite tous les éléments séquentiellement
 
-Collective MPI :
+- Collective MPI :
+  
+  Distribution des données (scatter)
 
-Distribution des données (scatter)
+  Calcul parallèle local
 
-Calcul parallèle local
-
-Agrégation des résultats (reduce)
+  Agrégation des résultats (reduce)
 
 ## 🧠 Explication Technique
 
