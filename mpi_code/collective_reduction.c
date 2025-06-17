@@ -22,7 +22,10 @@ void monoprocessor_reduction(const int* data, int size) {
     printf("[MONO] Début du calcul intensif...\n");
     double sum = 0.0;
     for (int i = 0; i < size; i++) {
+
+        // On applique calcul intensive sur chaque entier et cumule les resultat dans une sum()
         sum += intensive_computation(data[i]);
+
         // Affichage du progrès
         if (i % (size/10) == 0) {
             printf("[MONO] Progrès: %.1f%%\n", (double)i/size * 100);
@@ -33,32 +36,42 @@ void monoprocessor_reduction(const int* data, int size) {
 
 // Fonction de réduction collective optimisée
 void collective_reduction(int* data, int size, int rank, int world_size) {
+
     double start_time, end_time;
     
     // Calcul de la portion pour chaque processus
-    int portion_size = size / world_size;
-    int remainder = size % world_size;
+    int portion_size = size / world_size; // chaque processus recoit une portion du tableau
+    int remainder = size % world_size; // on donne au dernier processus s'il reste des elements
     
     // Ajustement pour le dernier processus (gestion du reste)
+
     if (rank == world_size - 1) {
-        portion_size += remainder;
+
+        // Le dernier processus reçoit la portion "normale" + les restes. 
+        portion_size += remainder; // 
     }
     
-    int* local_data = (int*)malloc(portion_size * sizeof(int));
+    int* local_data = (int*)malloc(portion_size * sizeof(int)); // allocation dynamique d'un tableau pour stocker des donnees propres a ce processus
     
-    // Mesure du temps de distribution
-    start_time = MPI_Wtime();
+
+    // Distribution des donnees
+    
+    start_time = MPI_Wtime(); // Mesure du temps de distribution
     
     if (rank == 0) {
         printf("[COLLECTIVE] Distribution des données...\n");
+
         // Le processus 0 distribue ses données et celles des autres
+
         for (int i = 0; i < world_size; i++) {
+
             int send_size = size / world_size;
+
             if (i == world_size - 1) send_size += remainder;
             
             if (i == 0) {
-                // Copie locale pour le processus 0
-                memcpy(local_data, data, send_size * sizeof(int));
+                // le processus 0 copie sa propre portion avec memcpy
+                memcpy(local_data, data, send_size * sizeof(int)); 
             } else {
                 // Envoi aux autres processus
                 MPI_Send(data + i * (size / world_size), send_size, MPI_INT, i, 0, MPI_COMM_WORLD);
@@ -82,7 +95,13 @@ void collective_reduction(int* data, int size, int rank, int world_size) {
     printf("[PROCESSUS %d] Début du calcul sur %d éléments...\n", rank, portion_size);
     
     double local_sum = 0.0;
+
+    
+
     for (int i = 0; i < portion_size; i++) {
+
+        //Chaque processus calcule sa somme locale avec la fonction lourde intensive_computation
+
         local_sum += intensive_computation(local_data[i]);
         
         // Affichage du progrès pour chaque processus
@@ -95,12 +114,20 @@ void collective_reduction(int* data, int size, int rank, int world_size) {
     printf("[PROCESSUS %d] Calcul terminé en %.6f secondes, somme locale: %.2f\n", 
            rank, end_time - start_time, local_sum);
     
+
+
     // Synchronisation avant la réduction
     MPI_Barrier(MPI_COMM_WORLD);
     
     // Réduction globale avec mesure de temps
     start_time = MPI_Wtime();
+
+
     double global_sum;
+
+
+    // Chaque processus envoie sa local_sum vers rank == 0, qui fait la somme globale automatiquement via MPI_Reduce
+
     MPI_Reduce(&local_sum, &global_sum, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     end_time = MPI_Wtime();
     
@@ -117,12 +144,12 @@ int main(int argc, char** argv) {
     MPI_Init(&argc, &argv);
 
     int rank, world_size;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank); // récupère le rang (rank) du processus courant
+    MPI_Comm_size(MPI_COMM_WORLD, &world_size); //  récupère le nombre total de processus
 
     // Paramètres optimisés
     int data_size = 1000;  // Taille réduite mais calcul intensif
-    int* global_data = NULL;
+    int* global_data = NULL; // pointeur vers tableau
 
     // Génération des données (root seulement)
     if (rank == 0) {
@@ -131,11 +158,11 @@ int main(int argc, char** argv) {
         printf("Nombre de processus: %d\n", world_size);
         printf("Calcul intensif: 10,000 opérations par élément\n\n");
         
-        global_data = (int*)malloc(data_size * sizeof(int));
+        global_data = (int*)malloc(data_size * sizeof(int)); // Alloue un tableau en entier
         srand(42);  // Graine fixe pour reproductibilité
         printf("Génération des données...\n");
         for (int i = 0; i < data_size; i++) {
-            global_data[i] = rand() % 100 + 1;  // Valeurs 1-100 (éviter 0)
+            global_data[i] = rand() % 100 + 1;  // Valeurs aleatoire entre 1-100 (éviter 0)
         }
         printf("Données générées avec succès!\n\n");
     }
